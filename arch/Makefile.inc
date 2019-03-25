@@ -18,7 +18,7 @@ endif
 SUB_ARCH := $(addprefix $(TOP)/arch/, $(SUB_ARCH))
 
 vpath %.c $(SUB_ARCH)
-vpath %.s #(SUB_ARCH)
+vpath %.s $(SUB_ARCH)
 
 sinclude $(addsuffix /Makefile.inc, $(SUB_ARCH))
 
