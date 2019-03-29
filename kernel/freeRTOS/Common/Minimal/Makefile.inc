@@ -2,7 +2,7 @@
 # GCC template makefile
 ###########################################################
 
-#FREERTOS_MIN_SOURCES = 
+FREERTOS_MIN_SOURCES = 
 #FREERTOS_MIN_SOURCES += AbortDelay.c
 #FREERTOS_MIN_SOURCES += BlockQ.c
 #FREERTOS_MIN_SOURCES += blocktim.c

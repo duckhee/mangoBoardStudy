@@ -4,7 +4,7 @@ include $(TOP)/inc.mk
 
 TARGET = wifiTest
 
-USE_FREERTOS = 
+USE_FREERTOS = y
 
 #List C sources files here.
 SRCS += $(C_SOURCES)
@@ -17,6 +17,7 @@ ASM_SOURCES =
 
 SUB_DIRS := 
 SUB_DIRS += arch
+SUB_DIRS += kernel
 
 ifeq ($(USE_FREERTOS), y)
 SUB_DIRS += kernel/freeRTOS
