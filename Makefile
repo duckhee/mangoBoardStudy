@@ -1,3 +1,7 @@
+# "$@" 또는 "$(@)"는 바로 Target
+# "$^"는 Depend 전체를 의미
+#"$<"는 열거된 Depend중에 가장 왼쪽에 기술된 1개의 Depend
+
 TOP = .
 
 include $(TOP)/inc.mk
