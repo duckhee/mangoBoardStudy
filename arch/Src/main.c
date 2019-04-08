@@ -18,6 +18,7 @@ int main(int argc, char **argv)
     RCC_Configuration();
     USART1_Init();
     debug();
+    ESP_Init();
     if(SysTick_Config(rcc_clocks.SYSCLK_Frequency / 1000))
     {
         while(1);
