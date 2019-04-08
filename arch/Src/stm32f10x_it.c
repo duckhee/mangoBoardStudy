@@ -30,6 +30,9 @@
 #ifdef FREE_RTOS
     #include "FreeRTOS.h"
 #endif
+#ifdef ESP_SET
+  #include "ESP8266.h"
+#endif
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -608,10 +611,24 @@ void USART2_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+#ifdef ESP_SET
+void USART3_IRQHandler(void){
+    if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
+    {
+    
+        USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+        ESP_EnQueue(USART_ReceiveData(USART3));
+        //esp buffer insert data buffer
+        //
+        while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
+        //U_EnQueue(USART_ReceiveData(USART3));
+    }
+  }
+#else
 void USART3_IRQHandler(void)
 {
 }
-
+#endif
 /*******************************************************************************
 * Function Name  : EXTI15_10_IRQHandler
 * Description    : This function handles External lines 15 to 10 interrupt request.
