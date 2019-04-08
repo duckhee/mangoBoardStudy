@@ -47,10 +47,7 @@ typedef enum  {
 	ESP8266_ECN_WPA_WPA2_PSK = 4
 }esp8266_encryption;
 
-typedef enum{
-    ESP8266_RESPONSE = "OK\r\n",
 
-}ESP_Response;
 
 #ifdef ESP8266_LOCAL
 #define ESP8266_DEF
@@ -65,7 +62,8 @@ ESP8266_DEF bool esp8266SearchBuffer(const char * test);
 ESP8266_DEF bool AT_Test(void);
 ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
-ESP8266_DEF bool ESP_SendCommand(char *command);
+
+ESP8266_DEF void ESP_SendCommand(char *command);
 
 ESP8266_DEF void ESP_EnQueue(uint8_t data);
 ESP8266_DEF void ESP_Increase_point_value(uint32_t *data_p);

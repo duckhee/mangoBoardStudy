@@ -5,6 +5,8 @@ SUBMODEL = version1
 #MANGO_Z1 = 
 MAINGO_Z1 = 
 
+ESP_USE = y
+
 REMOVE_CMD = rm
 
 PREFIX = arm-none-eabi-
@@ -61,6 +63,10 @@ else
 CDEFS = \
 -D USE_STDPERIPH_DRIVER \
 -D BOARD_DEF_MANGO_M32
+endif
+
+ifeq ($(ESP_USE),y)
+CDEFS += -D ESP_SET
 endif
 # Place -D or -U options for ASM here
 #ADEFS =  -D$(RUN_MODE)

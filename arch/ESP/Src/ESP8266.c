@@ -10,7 +10,7 @@ ESP8266_DEF bool AT_Test(void);
 ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
 
-ESP8266_DEF bool ESP_SendCommand(char *command);
+ESP8266_DEF void ESP_SendCommand(char *command);
 
 ESP8266_DEF void ESP_EnQueue(uint8_t data);
 ESP8266_DEF void ESP_Increase_point_value(uint32_t *data_p);
@@ -58,7 +58,7 @@ ESP8266_DEF bool ESP_FactoryReset(void)
 
 ESP8266_DEF void ESP_SendCommand(char *command)
 {
-    uint16_t i, length = strlen((char *)commnad);
+    uint16_t i, length = strlen((char *)command);
     for(i = 0; i < length; i++)
     {
         USART_SendData(ESPUSART, *command);
@@ -72,7 +72,7 @@ ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout)
 {
     
     unsigned long timeIn = millis();
-    while(timeIn + timout > millis())
+    while(timeIn + timeout > millis())
     {
         if(esp8266RxBufferAvailable())
         {
@@ -91,10 +91,10 @@ ESP8266_DEF bool esp8266RxBufferAvailable(){
 
 bool esp8266SearchBuffer(const char * test){
     int i = 0;
-    int bufferlen = strlen((const char *)test);
+    int bufferlen = strlen((const char *)ESP_BUFFER);
     if(bufferlen < ESPBUF_MAXSIZE)
     {
-        if(strstr((const char *)ESP_BUFFER), test)
+        if(strstr((const char *)ESP_BUFFER, test))
         {
             return TRUE;
         }else{
@@ -110,7 +110,7 @@ bool esp8266SearchBuffer(const char * test){
  */
 ESP8266_DEF void ESP_EnQueue(uint8_t data)
 {
-    espDataBuff[esp_rx_point_header] = data;
+    ESP_BUFFER[esp_rx_point_header] = data;
     ESP_Increase_point_value(&esp_rx_point_header);
 }
 
@@ -125,7 +125,7 @@ ESP8266_DEF void ESP_Increase_point_value(uint32_t *data_p)
 
 ESP8266_DEF uint8_t ESP_DeQueue(void)
 {
-    uint8_t retVal = espDataBuff[esp_rx_point_tail];
+    uint8_t retVal = ESP_BUFFER[esp_rx_point_tail];
     ESP_Increase_point_value(esp_rx_point_tail);
     return retVal;
 }
