@@ -55,6 +55,9 @@ typedef enum  {
 #define ESP8266_DEF                 extern
 #endif
 
+ESP8266_DEF void ESP_Configuration(void);
+ESP8266_DEF void ESP_Init(void);
+
 ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout);
 ESP8266_DEF bool esp8266RxBufferAvailable(void);
 ESP8266_DEF bool esp8266SearchBuffer(const char * test);

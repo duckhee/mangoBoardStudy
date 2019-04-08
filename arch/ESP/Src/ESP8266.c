@@ -23,6 +23,67 @@ uint8_t ESP_BUFFER[ESPBUF_MAXSIZE];
 uint32_t esp_rx_point_header = 0;
 uint32_t esp_rx_point_tail = 0;
 
+
+ESP8266_DEF void ESP_Configuration(void)
+{
+    /* GPIOA port */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB , ENABLE);
+
+    /* USART3 enable */
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+
+    /* GPIO_Init */
+    /* GPIO_Init ESP Rx */
+    GPIO_InitTypeDef GPIO_InitStructure;
+    GPIO_InitStructure.GPIO_Pin = ESP_Tx_pin;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_Init(ESPPORT, &GPIO_InitStructure);
+
+    /* GPIO_Init ESP Tx */
+    GPIO_InitStructure.GPIO_Pin = ESP_Rx_pin;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_Init(ESPPORT, &GPIO_InitStructure);
+
+    /* USART Init */
+    USART_InitTypeDef ESP_InitStructure;
+    ESP_InitStructure.USART_BaudRate = 115200;
+    ESP_InitStructure.USART_WordLength = USART_WordLength_8b;
+    ESP_InitStructure.USART_StopBits = USART_StopBits_1;
+    ESP_InitStructure.USART_Parity = USART_Parity_No;
+    ESP_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    ESP_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+    /* usart3 set */
+    USART_Init(ESPUSART, &ESP_InitStructure);
+    USART_ITConfig(ESPUSART, USART_IT_RXNE, ENABLE);
+    /* usart3 start */
+    USART_Cmd(ESPUSART, ENABLE);
+}
+
+ESP8266_DEF void esp_interrupt_configuration()
+{
+    NVIC_InitTypeDef NVIC_InitStructure;
+
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
+    NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+}
+
+
+ESP8266_DEF void ESP_Init(void)
+{
+    
+    ESP_Configuration();
+    esp_interrupt_configuration();
+
+    //ESP_Test();
+}
+
 ESP8266_DEF bool AT_Test(void)
 {
     ESP_SendCommand("AT\r\n");
