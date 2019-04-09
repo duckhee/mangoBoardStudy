@@ -41,10 +41,13 @@ AT_MENU_DEF int at_menu()
                 ESP_ResponseDataClean();
                 if(ESP_StationList())
                 {
-                    printf("list get \r\n");
+                    
+                    bzero(list, sizeof(list));
                     uint8_t *getData = ESP_ResponseData();
-                    printf("list ::: ");
                     printf(getData);
+                    
+                    
+                    
                 }else{
                     printf("list get failed\r\n");
                 }
@@ -52,6 +55,7 @@ AT_MENU_DEF int at_menu()
 
             case '4':
                 printf("\r\nNo.4\n");
+                ESP_ResponseDataClean();
                 if(ESP_FactoryReset()){
                     printf("factory reset success\r\n");
                 }else{
@@ -61,7 +65,13 @@ AT_MENU_DEF int at_menu()
               
             case '5':
                 printf("\r\nNo.5\n");
-                
+                ESP_ResponseDataClean();
+                if(ESP_Reset())
+                {
+                    printf("reset success\r\n");
+                }else{
+                    printf("reset failed\r\n");
+                }
             break;
 
             case '6':
@@ -164,6 +174,7 @@ AT_MENU_DEF int at_main_menu()
     printf(" 2. AT MODE\r\n");
     printf(" 3. AT LIST\r\n");
     printf(" 4. Factory RESET\r\n");
+    printf(" 5. AT RESET \r\n");
     printf("-------------------------------------------------\r\n");
     printf(" q. Menu Quit\r\n");
     printf("-------------------------------------------------\r\n");

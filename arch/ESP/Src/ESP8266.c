@@ -134,12 +134,31 @@ ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode)
 ESP8266_DEF bool ESP_StationList(void)
 {
     ESP_SendCommand("AT+CWLAP\r\n");
-    if(esp8266ReadForResponse("+CWLAP", COMMAND_RESPONSE_TIMEOUT))
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
     {
         return TRUE;
     }else{
         return FALSE;
     }
+}
+
+ESP8266_DEF uint8_t *StationNames(uint8_t *list)
+{
+    uint8_t count = 0, index = 0;    
+        //TODO need to check
+        char *ptr = strtok(list, "()");
+        while(ptr != NULL)
+        {
+            count++;
+            if(count % 2 == 0)
+            {
+                //temp[index] = ptr;
+                index++;
+            }
+            ptr = strtok(NULL, "()");
+        }
+        
+    //return NameList;
 }
 
 ESP8266_DEF void ESP_SendCommand(char *command)
@@ -156,7 +175,6 @@ ESP8266_DEF void ESP_SendCommand(char *command)
 
 ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout)
 {
-    
         Delay(timeout);
         if(esp8266RxBufferAvailable())
         {
@@ -165,15 +183,16 @@ ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout)
                 return TRUE;
             }
         }
-    
     return FALSE;
 }
 
-ESP8266_DEF bool esp8266RxBufferAvailable(){
+ESP8266_DEF bool esp8266RxBufferAvailable()
+{
     return (esp_rx_point_header > 0) ? TRUE : FALSE;
 }
 
-bool esp8266SearchBuffer(const char * test){
+ESP8266_DEF bool esp8266SearchBuffer(const char * test)
+{
     int i = 0;
     int bufferlen = strlen((const char *)ESP_BUFFER);
     if(bufferlen < ESPBUF_MAXSIZE)

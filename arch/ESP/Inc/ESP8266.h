@@ -67,6 +67,7 @@ ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
 ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode);
 ESP8266_DEF bool ESP_StationList(void);
+ESP8266_DEF uint8_t *StationNames(uint8_t *list);
 
 ESP8266_DEF void ESP_SendCommand(char *command);
 
