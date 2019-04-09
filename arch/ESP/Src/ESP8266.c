@@ -24,6 +24,8 @@ uint32_t esp_rx_point_header = 0;
 uint32_t esp_rx_point_tail = 0;
 
 
+
+
 ESP8266_DEF void ESP_Configuration(void)
 {
     /* GPIOA port */
@@ -119,16 +121,45 @@ ESP8266_DEF bool ESP_FactoryReset(void)
 
 ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode)
 {
-    uint8_t Command[ESPBUF_MAXSIZE];
+    uint8_t Command[128];
     sprintf(Command, "AT+CWMODE=%d\r\n", mode);
     ESP_SendCommand(Command);
-    printf(Command);
     if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
     {
         return TRUE;
     }else{
         return FALSE;
     }
+}
+
+ESP8266_DEF bool ESP_SetMux(esp8266_ConnectionType connType)
+{
+    uint8_t Command[128];
+    sprintf(Command, "AT+CIPMUX=%d\r\n", connType);
+    ESP_SendCommand(Command);
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+ESP8266_DEF bool ESP_Status(void)
+{
+    ESP_SendCommand("AT+CIPSTATUS\r\n");
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+//TODO
+ESP8266_DEF bool ESP_StationConnection()
+{
+
 }
 
 ESP8266_DEF bool ESP_StationList(void)
@@ -142,23 +173,24 @@ ESP8266_DEF bool ESP_StationList(void)
     }
 }
 
-ESP8266_DEF uint8_t *StationNames(uint8_t *list)
+ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
 {
-    uint8_t count = 0, index = 0;    
-        //TODO need to check
-        char *ptr = strtok(list, "()");
-        while(ptr != NULL)
+    uint8_t count = 0, index = 0;
+    //TODO need to check
+    char *ptr = strtok(list, "()");
+    while(ptr != NULL)
+    {
+        count++;
+        if(count % 2 == 0)
         {
-            count++;
-            if(count % 2 == 0)
-            {
-                //temp[index] = ptr;
-                index++;
-            }
-            ptr = strtok(NULL, "()");
+            //temp[index] = ptr;
+            
+            Name[index] = ptr;
+            index++;
         }
-        
-    //return NameList;
+        ptr = strtok(NULL, "()");
+    }
+    return index;
 }
 
 ESP8266_DEF void ESP_SendCommand(char *command)
@@ -246,7 +278,7 @@ ESP8266_DEF bool ESP_Data_Empty(void)
 
 ESP8266_DEF void ESP_ResponseDataClean(void)
 {
-    memset(ESP_BUFFER,'\0', ESPBUF_MAXSIZE);
+    memset(ESP_BUFFER,'\0', sizeof(ESP_BUFFER));
     esp_rx_point_header = esp_rx_point_tail = 0;
 }
 
@@ -254,3 +286,4 @@ ESP8266_DEF uint8_t *ESP_ResponseData(void)
 {
     return ESP_BUFFER;
 }
+

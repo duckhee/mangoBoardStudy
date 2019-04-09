@@ -47,6 +47,10 @@ typedef enum  {
 	ESP8266_ECN_WPA_WPA2_PSK = 4
 }esp8266_encryption;
 
+typedef enum{
+    SINGLE_CONNECTION = 0,
+    MULTI_CONNECTION = 1
+}esp8266_ConnectionType;
 
 
 #ifdef ESP8266_LOCAL
@@ -66,8 +70,14 @@ ESP8266_DEF bool AT_Test(void);
 ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
 ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode);
+
+ESP8266_DEF bool ESP_SetMux(esp8266_ConnectionType connType);
+ESP8266_DEF bool ESP_Status(void);
+
 ESP8266_DEF bool ESP_StationList(void);
-ESP8266_DEF uint8_t *StationNames(uint8_t *list);
+ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[]);
+//TODO
+ESP8266_DEF bool ESP_StationConnection();
 
 ESP8266_DEF void ESP_SendCommand(char *command);
 

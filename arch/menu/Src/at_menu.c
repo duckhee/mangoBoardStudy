@@ -39,14 +39,18 @@ AT_MENU_DEF int at_menu()
             case '3':
                 printf("\r\nNo.3\n");
                 ESP_ResponseDataClean();
+                uint8_t *Name[10];
+                uint8_t temp;
+                bzero(Name, sizeof(Name));
                 if(ESP_StationList())
                 {
-                    
-                    bzero(list, sizeof(list));
                     uint8_t *getData = ESP_ResponseData();
-                    printf(getData);
-                    
-                    
+                    temp =  StationNames(getData, Name);
+                    for(int i = 0; i < temp; i++)
+                    {
+                        printf("WiFi Name ::: %s\r\n", Name[i]);
+                    }
+                    //printf("length ::: %d\r\n", sizeof(Name)/sizeof(Name[0]));
                     
                 }else{
                     printf("list get failed\r\n");
