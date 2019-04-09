@@ -8,7 +8,7 @@ include $(TOP)/inc.mk
 
 TARGET = wifiTest
 
-USE_FREERTOS = y
+USE_FREERTOS = 
 
 
 #List C sources files here.

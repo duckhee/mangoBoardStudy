@@ -87,7 +87,7 @@ ESP8266_DEF void ESP_Init(void)
 ESP8266_DEF bool AT_Test(void)
 {
     ESP_SendCommand("AT\r\n");
-    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    if(esp8266ReadForResponse("OK", COMMAND_RESPONSE_TIMEOUT))
     {
         return TRUE;
     }else{
@@ -117,6 +117,31 @@ ESP8266_DEF bool ESP_FactoryReset(void)
     }
 }
 
+ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode)
+{
+    uint8_t Command[ESPBUF_MAXSIZE];
+    sprintf(Command, "AT+CWMODE=%d\r\n", mode);
+    ESP_SendCommand(Command);
+    printf(Command);
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+ESP8266_DEF bool ESP_StationList(void)
+{
+    ESP_SendCommand("AT+CWLAP\r\n");
+    if(esp8266ReadForResponse("+CWLAP", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
 ESP8266_DEF void ESP_SendCommand(char *command)
 {
     uint16_t i, length = strlen((char *)command);
@@ -132,9 +157,7 @@ ESP8266_DEF void ESP_SendCommand(char *command)
 ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout)
 {
     
-    unsigned long timeIn = millis();
-    while(timeIn + timeout > millis())
-    {
+        Delay(timeout);
         if(esp8266RxBufferAvailable())
         {
             if(esp8266SearchBuffer(rsp))
@@ -142,7 +165,7 @@ ESP8266_DEF bool esp8266ReadForResponse(const char *rsp, unsigned int timeout)
                 return TRUE;
             }
         }
-    }
+    
     return FALSE;
 }
 
@@ -205,6 +228,7 @@ ESP8266_DEF bool ESP_Data_Empty(void)
 ESP8266_DEF void ESP_ResponseDataClean(void)
 {
     memset(ESP_BUFFER,'\0', ESPBUF_MAXSIZE);
+    esp_rx_point_header = esp_rx_point_tail = 0;
 }
 
 ESP8266_DEF uint8_t *ESP_ResponseData(void)

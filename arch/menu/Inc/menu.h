@@ -4,6 +4,10 @@
 #include "Hw_Config.h"
 #include "ESP8266.h"
 
+/**
+ * menu header here
+*/
+#include "at_menu.h"
 
 #ifdef MENU_LOCAL
 #define MENU_DEF

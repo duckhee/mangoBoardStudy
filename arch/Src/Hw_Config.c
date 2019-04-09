@@ -38,6 +38,7 @@ CONFIG_DEF void Delay(__IO uint32_t nTime)
   while(TimingDelay != 0);
 }
 
+
 /**
   * @brief  Decrements the TimingDelay variable.
   * @param  None

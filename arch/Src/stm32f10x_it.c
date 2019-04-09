@@ -611,7 +611,6 @@ void USART2_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
-#ifdef ESP_SET
 void USART3_IRQHandler(void){
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
@@ -624,11 +623,6 @@ void USART3_IRQHandler(void){
         //U_EnQueue(USART_ReceiveData(USART3));
     }
   }
-#else
-void USART3_IRQHandler(void)
-{
-}
-#endif
 /*******************************************************************************
 * Function Name  : EXTI15_10_IRQHandler
 * Description    : This function handles External lines 15 to 10 interrupt request.

@@ -36,8 +36,8 @@
 
 typedef enum{
     ESP8266_MODE_STATION = 1,
-    ESP8266_MODE_AP,
-    ESP8266_MODE_AP_STATION
+    ESP8266_MODE_AP = 2,
+    ESP8266_MODE_AP_STATION = 3
 }AT_CWMODE;
 
 typedef enum  {
@@ -65,6 +65,8 @@ ESP8266_DEF bool esp8266SearchBuffer(const char * test);
 ESP8266_DEF bool AT_Test(void);
 ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
+ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode);
+ESP8266_DEF bool ESP_StationList(void);
 
 ESP8266_DEF void ESP_SendCommand(char *command);
 

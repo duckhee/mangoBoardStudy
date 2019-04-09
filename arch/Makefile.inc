@@ -11,6 +11,7 @@ Src \
 menu/Src \
 
 ifeq ($(ESP_USE),y)
+
 SUB_ARCH += ESP/Src \
 
 endif
@@ -18,6 +19,7 @@ endif
 
 
 ifeq ($(MANGO_Z1),y)
+
 #SUB_ARCH += cc2520/Src \
 
 endif
@@ -37,11 +39,13 @@ $(TOP)/arch/Inc \
 $(TOP)/arch/menu/Inc \
 
 ifeq ($(ESP_USE),y)
+
 EXTRAINCDIRS += $(TOP)/arch/ESP/Inc \
 
 endif
 
 ifeq ($(MANGO_Z1),y)
+
 #EXTRAINCDIRS += $(TOP)/arch/cc2520/Inc \
 
 endif

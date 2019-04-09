@@ -16,6 +16,7 @@ void System_Information()
 int main(int argc, char **argv)
 {
     RCC_Configuration();
+    RCC_GetClocksFreq(&rcc_clocks);
     USART1_Init();
     debug();
     ESP_Init();
@@ -27,7 +28,7 @@ int main(int argc, char **argv)
 
     while(1)
     {
-
+        menu();
     }
     return 1;
 }

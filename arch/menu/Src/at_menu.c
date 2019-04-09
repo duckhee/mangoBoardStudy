@@ -1,37 +1,62 @@
-#define MENU_LOCAL
+#define AT_MENU_LOCAL
 
-#include "menu.h"
+#include "at_menu.h"
 
 
-MENU_DEF int menu();
-MENU_DEF int main_menu();
+AT_MENU_DEF int at_menu();
+MENU_DEF int at_main_menu();
 
-MENU_DEF int menu()
+AT_MENU_DEF int at_menu()
 {
     int key;
 
-    while((key = main_menu()) != 0)
+    while((key = at_main_menu()) != 0)
     {
         switch(key)
         {
                 case '1':
                 printf("\r\nNo.1\n");
-                at_menu();
+                ESP_ResponseDataClean();
+                if(AT_Test())
+                {
+                    printf("testing success\r\n");
+                }else{
+                    printf("testing failed\r\n");
+                }
             break;
 
             case '2':
                 printf("\r\nNo.2\n");
-                
+                ESP_ResponseDataClean();
+                if(ESP_ModeSet(ESP8266_MODE_AP_STATION))
+                {
+                    printf("mode setting success\r\n");
+                }else{
+                    printf("mode setting failed\r\n");
+                }
             break;
             
             case '3':
                 printf("\r\nNo.3\n");
-                
+                ESP_ResponseDataClean();
+                if(ESP_StationList())
+                {
+                    printf("list get \r\n");
+                    uint8_t *getData = ESP_ResponseData();
+                    printf("list ::: ");
+                    printf(getData);
+                }else{
+                    printf("list get failed\r\n");
+                }
             break;
 
             case '4':
                 printf("\r\nNo.4\n");
-                
+                if(ESP_FactoryReset()){
+                    printf("factory reset success\r\n");
+                }else{
+                    printf("factory reset failed\r\n");
+                }
             break;
               
             case '5':
@@ -127,17 +152,18 @@ MENU_DEF int menu()
     
 }
 
-MENU_DEF int main_menu()
+AT_MENU_DEF int at_main_menu()
 {
     int key;
     
     printf("\r\n\r\n");
     printf("-------------------------------------------------\r\n");
-    printf("                  menu select \r\n");
+    printf("                  at menu select \r\n");
     printf("-------------------------------------------------\r\n");
-    printf(" 1. at command test menu\r\n");
-    printf(" 2. \r\n");
-    printf(" 3. \r\n");
+    printf(" 1. AT TEST\r\n");
+    printf(" 2. AT MODE\r\n");
+    printf(" 3. AT LIST\r\n");
+    printf(" 4. Factory RESET\r\n");
     printf("-------------------------------------------------\r\n");
     printf(" q. Menu Quit\r\n");
     printf("-------------------------------------------------\r\n");
