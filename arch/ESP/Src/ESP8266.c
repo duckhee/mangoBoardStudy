@@ -214,6 +214,11 @@ ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
     return index;
 }
 
+ESP8266_DEF uint8_t StationNameList(uint8_t *Name[], uint8_t *NameList[])
+{
+
+}
+
 ESP8266_DEF void ESP_SendCommand(char *command)
 {
     uint16_t i, length = strlen((char *)command);
