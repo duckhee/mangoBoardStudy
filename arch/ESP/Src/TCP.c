@@ -4,6 +4,7 @@
 
 TCP_DEF bool PingTest(uint8_t *url);
 TCP_DEF bool TCP_Connect(uint8_t *url, uint8_t *port);
+TCP_DEF bool TCP_DisConnect(void);
 
 
 TCP_DEF bool PingTest(uint8_t *url)
@@ -37,4 +38,15 @@ TCP_DEF bool TCP_Connect(uint8_t *url, uint8_t *port)
         }
     }
     return flag;
+}
+
+TCP_DEF bool TCP_DisConnect(void)
+{
+    ESP_SendCommand("AT+CIPCLOSE\r\n");
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
 }
