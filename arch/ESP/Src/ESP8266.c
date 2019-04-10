@@ -214,9 +214,30 @@ ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
     return index;
 }
 
-ESP8266_DEF uint8_t StationNameList(uint8_t *Name[], uint8_t *NameList[])
+ESP8266_DEF uint8_t StationNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[])
 {
-
+    int8_t index = 0;
+    bzero(NameList, sizeof(NameList));
+    if(NameLength != 0){
+        for(int i = 0; i < NameLength; i++)
+        {
+            int count = 0;
+            char *ptr = strtok(Name[i], "\"");
+            while(ptr != NULL)
+            {
+                count++;
+                if(count == 2)
+                {
+                    NameLength[index] = ptr;
+                    index++;
+                }
+                ptr = strtok(NULL, "\"");
+            }
+        }
+        return index;
+    }else{
+        return 0;
+    }
 }
 
 ESP8266_DEF void ESP_SendCommand(char *command)
