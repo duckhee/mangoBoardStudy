@@ -169,11 +169,12 @@ ESP8266_DEF bool ESP_Status(void)
 }
 
 //TODO
-ESP8266_DEF bool ESP_StationConnection(uint8_t *ssid, uint8_t *password)
+ESP8266_DEF bool ESP_Connection(uint8_t *ssid, uint8_t *password)
 {
     uint8_t temp[128];
     bzero(temp, sizeof(temp));
     sprintf(temp, "AT+CWJAP=\"%s\",\"%s\"\r\n", ssid, password);
+    ESP_SendCommand(temp);
     if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
     {
         return TRUE;
@@ -183,7 +184,19 @@ ESP8266_DEF bool ESP_StationConnection(uint8_t *ssid, uint8_t *password)
 
 }
 
-ESP8266_DEF bool ESP_StationList(void)
+ESP8266_DEF bool ESP_DisConnection(void)
+{
+    ESP_SendCommand("AT+CWQAP\r\n");
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+
+}
+
+ESP8266_DEF bool ESP_ApList(void)
 {
     ESP_SendCommand("AT+CWLAP\r\n");
     if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
@@ -194,7 +207,7 @@ ESP8266_DEF bool ESP_StationList(void)
     }
 }
 
-ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
+ESP8266_DEF uint8_t ApNames(uint8_t *list, uint8_t *Name[])
 {
     uint8_t count = 0, index = 0;
     //TODO need to check
@@ -214,7 +227,7 @@ ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
     return index;
 }
 
-ESP8266_DEF uint8_t StationNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[])
+ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[])
 {
     int8_t index = 0;
     bzero(NameList, sizeof(NameList));

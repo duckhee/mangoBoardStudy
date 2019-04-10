@@ -87,11 +87,12 @@ ESP8266_DEF bool ESP_ModeCheck(void);
 ESP8266_DEF bool ESP_SetMux(esp8266_ConnectionType connType);
 ESP8266_DEF bool ESP_Status(void);
 
-ESP8266_DEF bool ESP_StationList(void);
-ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[]);
-ESP8266_DEF uint8_t StationNameList(uint8_t *Name[], uint8_t *NameList[]);
+ESP8266_DEF bool ESP_ApList(void);
+ESP8266_DEF uint8_t ApNames(uint8_t *list, uint8_t *Name[]);
+ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[]);
 //TODO
-ESP8266_DEF bool ESP_StationConnection(uint8_t *ssid, uint8_t *password);
+ESP8266_DEF bool ESP_Connection(uint8_t *ssid, uint8_t *password);
+ESP8266_DEF bool ESP_DisConnection(void);
 
 ESP8266_DEF void ESP_SendCommand(char *command);
 
