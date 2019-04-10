@@ -4,4 +4,8 @@
 #include "ESP8266.h"
 
 
+
+const char *HTTP_Method[] = {"GET", "POST", "PUT", "DELETE"};
+
+
 #endif

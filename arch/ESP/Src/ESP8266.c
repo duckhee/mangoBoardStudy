@@ -132,9 +132,21 @@ ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode)
     }
 }
 
+ESP8266_DEF bool ESP_ModeCheck(void)
+{
+    ESP_SendCommand("AT+CWMODE?\r\n");
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
 ESP8266_DEF bool ESP_SetMux(esp8266_ConnectionType connType)
 {
     uint8_t Command[128];
+    bzero(Command, sizeof(Command));
     sprintf(Command, "AT+CIPMUX=%d\r\n", connType);
     ESP_SendCommand(Command);
     if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
@@ -157,8 +169,17 @@ ESP8266_DEF bool ESP_Status(void)
 }
 
 //TODO
-ESP8266_DEF bool ESP_StationConnection()
+ESP8266_DEF bool ESP_StationConnection(uint8_t *ssid, uint8_t *password)
 {
+    uint8_t temp[128];
+    bzero(temp, sizeof(temp));
+    sprintf(temp, "AT+CWJAP=\"%s\",\"%s\"\r\n", ssid, password);
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
 
 }
 

@@ -52,6 +52,18 @@ typedef enum{
     MULTI_CONNECTION = 1
 }esp8266_ConnectionType;
 
+static uint8_t *Response[] = {
+    "OK\r\n",
+    "ERROR\r\n",
+    "ready\r\n",
+    "WIFI CONNECTED\r\n",
+    "WIFI GOT IP\r\n",
+    "WIFI DISCONNECT\r\n",
+    "busy s...\r\n",
+    "busy p...\r\n",
+    "+IPD\r\n",
+};
+
 
 #ifdef ESP8266_LOCAL
 #define ESP8266_DEF
@@ -70,6 +82,7 @@ ESP8266_DEF bool AT_Test(void);
 ESP8266_DEF bool ESP_Reset(void);
 ESP8266_DEF bool ESP_FactoryReset(void);
 ESP8266_DEF bool ESP_ModeSet(AT_CWMODE mode);
+ESP8266_DEF bool ESP_ModeCheck(void);
 
 ESP8266_DEF bool ESP_SetMux(esp8266_ConnectionType connType);
 ESP8266_DEF bool ESP_Status(void);
