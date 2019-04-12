@@ -90,6 +90,10 @@ ESP8266_DEF bool ESP_Status(void);
 ESP8266_DEF bool ESP_ApList(void);
 ESP8266_DEF uint8_t ApNames(uint8_t *list, uint8_t *Name[]);
 ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[]);
+
+ESP8266_DEF bool ESP_StationList(void);
+ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[]);
+
 //TODO
 ESP8266_DEF bool ESP_Connection(uint8_t *ssid, uint8_t *password);
 ESP8266_DEF bool ESP_DisConnection(void);

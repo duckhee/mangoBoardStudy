@@ -207,6 +207,7 @@ ESP8266_DEF bool ESP_ApList(void)
     }
 }
 
+
 ESP8266_DEF uint8_t ApNames(uint8_t *list, uint8_t *Name[])
 {
     uint8_t count = 0, index = 0;
@@ -251,6 +252,31 @@ ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *Nam
     }else{
         return 0;
     }
+}
+
+
+ESP8266_DEF bool ESP_StationList(void)
+{
+    ESP_SendCommand("AT+CIFSR\r\n");
+    if(esp8266ReadForResponse("OK\r\n", COMMAND_RESPONSE_TIMEOUT))
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+ESP8266_DEF uint8_t StationNames(uint8_t *list, uint8_t *Name[])
+{
+    uint8_t count = 0, index = 0;
+    char *ptr = strtok(list, "+CIFSR");
+    while(ptr != NULL)
+    {
+        *Name[index] = ptr;
+        index++;
+        ptr = strtok(NULL, "+CIFSR");
+    }
+    return index;
 }
 
 ESP8266_DEF void ESP_SendCommand(char *command)
