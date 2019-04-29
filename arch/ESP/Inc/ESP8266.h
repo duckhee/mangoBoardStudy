@@ -5,6 +5,12 @@
 #include "Hw_Config.h"
 #include "string.h"
 
+/**
+ * custom method header
+*/
+#include "HTTP.h"
+#include "TCP.h"
+
 
 /*
     PA2 UART2_TXD 16
