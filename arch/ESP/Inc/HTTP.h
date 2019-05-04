@@ -10,7 +10,7 @@ typedef enum{
     DELETE = 3
 }HTTP_MethodTypeDef;
 
-const char *HTTP_Method[] = {"GET", "POST", "PUT", "DELETE"};
+
 
 typedef struct{
     uint8_t *RemoteUrl;

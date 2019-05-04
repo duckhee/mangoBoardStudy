@@ -228,7 +228,7 @@ ESP8266_DEF uint8_t ApNames(uint8_t *list, uint8_t *Name[])
     return index;
 }
 
-ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t NameLength, uint8_t *NameList[])
+ESP8266_DEF uint8_t ApNameList(uint8_t *Name[], uint8_t *NameLength, uint8_t *NameList[])
 {
     int8_t index = 0;
     bzero(NameList, sizeof(NameList));
