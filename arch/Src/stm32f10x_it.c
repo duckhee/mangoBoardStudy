@@ -30,9 +30,7 @@
 #ifdef FREE_RTOS
     #include "FreeRTOS.h"
 #endif
-#ifdef ESP_SET
-  #include "ESP8266.h"
-#endif
+
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -158,7 +156,7 @@ void PendSV_Handler(void)
 #else
 void SysTick_Handler(void)
 {   
-    TimingDelay_Decrement();
+    
 }
 #endif
 
@@ -243,7 +241,7 @@ void RCC_IRQHandler(void)
 * Return         : None
 *******************************************************************************/
 
-static bool toggle_data_key1 = FALSE;
+
 
 void EXTI0_IRQHandler(void)
 {
@@ -428,13 +426,7 @@ void CAN1_SCE_IRQHandler(void)
 *******************************************************************************/
 void EXTI9_5_IRQHandler(void)
 {
-#ifdef  BOARD_DEF_MANGO_Z1
-    if(EXTI_GetITStatus(GPIO_EXTI_Line_RF_GPIO0) != RESET)
-    {
-        basicRfRxFrmDoneIsr();
-        EXTI_ClearITPendingBit(GPIO_EXTI_Line_RF_GPIO0);
-    }
-#endif
+
 }
 
 /*******************************************************************************
@@ -612,17 +604,8 @@ void USART2_IRQHandler(void)
 * Return         : None
 *******************************************************************************/
 void USART3_IRQHandler(void){
-    if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
-    {
     
-        USART_ClearITPendingBit(USART3, USART_IT_RXNE);
-        ESP_EnQueue(USART_ReceiveData(USART3));
-        //esp buffer insert data buffer
-        //
-        while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
-        //U_EnQueue(USART_ReceiveData(USART3));
-    }
-  }
+}
 /*******************************************************************************
 * Function Name  : EXTI15_10_IRQHandler
 * Description    : This function handles External lines 15 to 10 interrupt request.
@@ -654,9 +637,7 @@ void RTCAlarm_IRQHandler(void)
 *******************************************************************************/
 void USBWakeUp_IRQHandler(void)
 {
-#if 1
-    EXTI_ClearITPendingBit(EXTI_Line18);
-#endif
+
 }
 
 /******************* (C) COPYRIGHT 2009 STMicroelectronics *****END OF FILE****/

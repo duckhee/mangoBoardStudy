@@ -8,15 +8,6 @@ CMSIS/Core/CM3 \
 CMSIS/Core/CM3/startup/gcc \
 STM32F10x_StdPeriph_Driver/Src \
 Src \
-menu/Src \
-
-ifeq ($(ESP_USE),y)
-
-SUB_ARCH += ESP/Src \
-
-endif
-
-
 
 ifeq ($(MANGO_Z1),y)
 
@@ -36,13 +27,7 @@ $(TOP)/arch/Inc \
 $(TOP)/arch/CMSIS/Core/CM3 \
 $(TOP)/arch/STM32F10x_StdPeriph_Driver/Inc \
 $(TOP)/arch/Inc \
-$(TOP)/arch/menu/Inc \
 
-ifeq ($(ESP_USE),y)
-
-EXTRAINCDIRS += $(TOP)/arch/ESP/Inc \
-
-endif
 
 ifeq ($(MANGO_Z1),y)
 

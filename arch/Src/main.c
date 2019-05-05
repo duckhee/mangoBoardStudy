@@ -1,5 +1,5 @@
 #include "main.h"
-#include "ESP8266.h"
+
 
 bool g_TestProcessState = FALSE;
 RCC_ClocksTypeDef rcc_clocks;
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     RCC_GetClocksFreq(&rcc_clocks);
     USART1_Init();
     debug();
-    ESP_Init();
+
     if(SysTick_Config(rcc_clocks.SYSCLK_Frequency / 1000))
     {
         while(1);
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 
     while(1)
     {
-        menu();
+
     }
     return 1;
 }
