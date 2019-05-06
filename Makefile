@@ -6,7 +6,7 @@ TOP = .
 
 include $(TOP)/inc.mk
 
-TARGET = wifiTest
+TARGET := wifiTest
 
 USE_FREERTOS = 
 
@@ -78,11 +78,24 @@ hex: $(TARGET).hex
 IMGEXT=hex
 else
 ifeq ($(FORMAT),binary)
+ifeq ($(COMMAND),)
+study: clean gccversion createdirs build sizeinfo
+	@echo "build empty"
 build: elf bin lss sym
 lss: $(TARGET).lss
 bin: $(TARGET).bin
 sym: $(TARGET).sym
 IMGEXwT=bin
+else
+study: clean gccversion createdirs build 
+	$(SIZE) -A $(COMMAND).elf
+	@echo "build $(COMMAND) chapter"
+build: elf bin lss sym
+lss: $(COMMAND).lss
+bin: $(COMMAND).bin
+sym: $(COMMAND).sym
+IMGEXwT=bin
+endif
 else
 $(error "please check output-format $(FORMAT)")
 endif
