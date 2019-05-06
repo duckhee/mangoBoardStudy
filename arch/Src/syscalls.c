@@ -8,6 +8,7 @@
 #define  U1_BUFFER_SIZE  100
 
 //retargetting _write
+//해당 객체 또는 함수가 참조되지 않아도 사용하는 것처럼 컴파일러로 하여금 삭제되지 않도록 한다. __attribute__((used))
 __attribute__ ((used)) int _write(int fd, char *ptr, int len)
 {
     /* Write "len" of char from "ptr" to file id "fd"
