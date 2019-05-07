@@ -15,10 +15,6 @@
 #include "stm32f10x.h"
 #include "stdio.h"
 #include "debug.h"
-#include "usb_lib.h"
-#include "usb_pwr.h"
-#include "usb_istr.h"
-#include "usb_desc.h"
 
 #ifdef BOARD_DEF_MANGO_Z1
     #include "zigbee_test.h"

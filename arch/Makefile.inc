@@ -7,12 +7,13 @@ SUB_ARCH := \
 CMSIS/Core/CM3 \
 CMSIS/Core/CM3/startup/gcc \
 STM32F10x_StdPeriph_Driver/Src 
+
 ifeq ($(COMMAND),)
 SUB_ARCH += Src 
-else ifeq ($(COMMAND),lib_debug)
-SUB_ARCH += /lib_debug/Src
-else ifeq ($(COMMAND),uart)
-SUB_ARCH += /uart_study/Src
+else ifeq ($(COMMAND), lib_debug)
+SUB_ARCH += lib_debug/Src
+else ifeq ($(COMMAND), uart)
+SUB_ARCH += uart_study/Src
 else
 
 endif
