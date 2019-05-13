@@ -18,7 +18,11 @@ else ifeq ($(COMMAND), jtag)
 SUB_ARCH += jtag_remap/Src
 else ifeq ($(COMMAND), usb)
 SUB_ARCH += USB/Src
-else 
+else ifeq ($(COMMAND), interrupt)
+SUB_ARCH += interrupt_priority/Src
+else ifeq ($(COMMAND), tim)
+SUB_ARCH += tim/Src
+else
 
 endif
 ifeq ($(MANGO_Z1),y)
@@ -49,6 +53,10 @@ else ifeq ($(COMMAND), usb)
 EXTRAINCDIRS += $(TOP)/arch/USB/Inc
 else ifeq ($(COMMAND), jtag)
 EXTRAINCDIRS += $(TOP)/jtag_remap/Inc
+else ifeq ($(COMMAND), interrupt)
+EXTRAINCDIRS += $(TOP)/interrupt_priority/Inc
+else fieq($(COMMAND), tim)
+EXTRAINCDIRS += $(TOP)/tim/Inc
 else
 
 endif
