@@ -14,7 +14,11 @@ else ifeq ($(COMMAND), lib_debug)
 SUB_ARCH += lib_debug/Src
 else ifeq ($(COMMAND), uart)
 SUB_ARCH += uart_study/Src
-else
+else ifeq ($(COMMAND), jtag)
+SUB_ARCH += jtag_remap/Src
+else ifeq ($(COMMAND), usb)
+SUB_ARCH += USB/Src
+else 
 
 endif
 ifeq ($(MANGO_Z1),y)
@@ -41,6 +45,12 @@ else ifeq ($(COMMAND), lib_debug)
 EXTRAINCDIRS += $(TOP)/arch/lib_debug/Inc
 else ifeq ($(COMMAND), uart)
 EXTRAINCDIRS += $(TOP)/arch/uart_study/Inc
+else ifeq ($(COMMAND), usb)
+EXTRAINCDIRS += $(TOP)/arch/USB/Inc
+else ifeq ($(COMMAND), jtag)
+EXTRAINCDIRS += $(TOP)/jtag_remap/Inc
+else
+
 endif
 
 
