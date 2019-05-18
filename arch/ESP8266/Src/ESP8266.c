@@ -23,7 +23,18 @@ uint8_t ESP_BUFFER[ESPBUF_MAXSIZE];
 uint32_t esp_rx_point_header = 0;
 uint32_t esp_rx_point_tail = 0;
 
-
+void USART3_IRQHandler(void){
+    if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
+    {
+    
+        USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+        ESP_EnQueue(USART_ReceiveData(USART3));
+        //esp buffer insert data buffer
+        //
+        while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
+        //U_EnQueue(USART_ReceiveData(USART3));
+    }
+  }
 
 
 ESP8266_DEF void ESP_Configuration(void)
