@@ -460,6 +460,8 @@ uint32_t __STREXW(uint32_t value, uint32_t *addr)
  * 그누 C에서는 __attribute__로 쓰이고 윈도우에서는 #pragma 로 쓰인다.
  * __attribute__는 GCC 컴파일러에 있는 메커니즘으로 컴파일러에게 추가적인 에러 체킹을 하라고 지시하는 것이다.
  * ARM, AVR, MCORE, RX 및 SPU 포트에서이 속성을 사용하여 지정된 함수가 컴파일러에 의해 생성 된 프롤로그 / 에필로그 시퀀스를 필요로하지 않음을 나타냅니다
+ * __attribute__((nacked))는 
+ * 이 특성은 함수가 포함 된 어셈블리 함수임을 컴파일러에 알립니다. __asm명령문을 사용하여 어셈블리 코드에서 함수 본문을 완전히 작성할 수 있습니다 .
  */
 uint32_t __get_PSP(void) __attribute__( ( naked ) );
 uint32_t __get_PSP(void)

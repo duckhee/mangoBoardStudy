@@ -603,6 +603,7 @@ void USART2_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((weak))
 void USART3_IRQHandler(void){
     
 }
