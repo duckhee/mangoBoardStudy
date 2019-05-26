@@ -63,6 +63,22 @@ __attribute__ ((used)) int _read(int fd, char *ptr, int len)
 }
 */
 
+/*
+__attribute__ ((used)) int _read(int file, int ptr, int dir)
+{
+    #if 0
+        init i;
+        (void)file;
+
+        for(i = 0; i < len; i++)
+        {
+            *ptr++ = USART_ReceiveData(USART1);
+            while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET);
+        }
+    return len;
+}
+*/
+
 __attribute__ ((used)) int _close(int file)
 {
     return -1;
