@@ -52,11 +52,11 @@ EXTRAINCDIRS += $(TOP)/arch/uart_study/Inc
 else ifeq ($(COMMAND), usb)
 EXTRAINCDIRS += $(TOP)/arch/USB/Inc
 else ifeq ($(COMMAND), jtag)
-EXTRAINCDIRS += $(TOP)/jtag_remap/Inc
+EXTRAINCDIRS += $(TOP)/arch/jtag_remap/Inc
 else ifeq ($(COMMAND), interrupt)
-EXTRAINCDIRS += $(TOP)/interrupt_priority/Inc
+EXTRAINCDIRS += $(TOP)/arch/interrupt_priority/Inc
 else fieq($(COMMAND), tim)
-EXTRAINCDIRS += $(TOP)/tim/Inc
+EXTRAINCDIRS += $(TOP)/arch/tim/Inc
 else
 
 endif

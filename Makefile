@@ -88,12 +88,12 @@ sym: $(TARGET).sym
 IMGEXwT=bin
 else
 study: clean gccversion createdirs build 
-	$(SIZE) -A $(COMMAND).elf
+	$(SIZE) -A $(TARGET).elf
 	@echo "build $(COMMAND) chapter"
 build: elf bin lss sym
-lss: $(COMMAND).lss
-bin: $(COMMAND).bin
-sym: $(COMMAND).sym
+lss: $(TARGET).lss
+bin: $(TARGET).bin
+sym: $(TARGET).sym
 IMGEXwT=bin
 endif
 else
