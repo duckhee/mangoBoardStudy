@@ -16,14 +16,20 @@ void TIM_Configuration()
 {
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 
-    TIM_TimeBaseStructure.TIM_Period = 0x4AF;
-    TIM_TimeBaseStructure.TIM_Prescaler = 0xEA5F;
+    TIM_TimeBaseStructure.TIM_Period = 0x4AF; //1199 + 1
+    TIM_TimeBaseStructure.TIM_Prescaler = 0xEA5F; //59999 + 1 = 60000 make 72MHz/60000 = 1200
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x0000;
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 
     TIM_Cmd(TIM2, ENABLE);
+
+    TIM_PrescalerConfig(TIM2, 0xEA5F, TIM_PSCReloadMode_Immediate);
+
+    TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+
+    TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
     
 }
 
@@ -31,6 +37,7 @@ int main(int argc, char **argv)
 {
     RCC_Configuration();
     RCC_GetClocksFreq(&rcc_clocks);
+    NVIC_Configuration();
     USART1_Init();
     debug();
 
